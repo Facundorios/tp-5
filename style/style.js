@@ -12,18 +12,13 @@ export const styles = StyleSheet.create({
       fontFamily: "Roboto",
       padding: 10,
     },
-    pokemonList: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "center",
-    },
-    pokemonContainer: {
-      flexDirection: "column",
-      alignItems: "center",
-      margin: 5,
-    },
     imagen: {
       width: 70,
       height: 70,
     },
+    button: {
+      color: "red",
+      padding: 10,
+      borderRadius: 5,
+    }
   })

@@ -1,36 +1,46 @@
-// screens/PokemonListScreen.js
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, FlatList, TouchableOpacity } from 'react-native';
-import axios from 'axios';
+import { View, Button, Text, FlatList } from "react-native";
+import { styles } from "../style/style";
+import { useState } from "react";
 
-const PokemonListScreen = ({ navigation }) => {
+function PokemonListScreen({ navigation }) {
   const [pokemonList, setPokemonList] = useState([]);
 
-  useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
-      .then(response => {
-        setPokemonList(response.data.results);
-      })
-      .catch(error => {
-        console.error('Error fetching Pokemon list:', error);
-      });
-  }, []);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1302"
+      );
+      const data = await response.json();
+      const allPokemon = [...data.results];
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('PokemonDetail', { name: item.name })}>
-      <Text>{item.name}</Text>
-    </TouchableOpacity>
-  );
+      const detailsPromises = allPokemon.map(async (pokemon) => {
+
+        const detailsResponse = await fetch(pokemon.url);
+        const detailsData = await detailsResponse.json();
+        
+        return {
+          name: pokemon.name,
+          details: detailsData,
+        };
+      });
+      const pokemonWithDetails = await Promise.all(detailsPromises);
+      setPokemonList(pokemonWithDetails);
+      console.log(detailsData)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+
 
   return (
-    <View>
-      <FlatList
-        data={pokemonList}
-        renderItem={renderItem}
-        keyExtractor={item => item.name}
-      />
+    <View style={styles.container}>
+      <Text>Lista de pokemones</Text>
+      <Button title="Cargar pokemon" onPress={fetchData} />
+      <FlatList data={pokemonList} renderItem={({ item }) => <Text>{item.name}</Text>} />
     </View>
+
   );
-};
+}
 
 export default PokemonListScreen;
