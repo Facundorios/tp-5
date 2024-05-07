@@ -16,5 +16,14 @@ export const styles = StyleSheet.create({
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "center",
-    }
+    },
+    pokemonContainer: {
+      flexDirection: "column",
+      alignItems: "center",
+      margin: 5,
+    },
+    imagen: {
+      width: 70,
+      height: 70,
+    },
   })

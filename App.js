@@ -1,53 +1,17 @@
-// In App.js in a new project
-import { useState, useEffect } from "react";
-import { FlatList, View, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
-
-function showPokemon({ item, index }) {
-  return (
-    <View>
-      <Text>{item.name}</Text>
-    </View>
-  );
-}
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./components/Home";
+import Main from './components/Main'
+const Stack = createNativeStackNavigator();
 
 function App() {
-  const [list, setList] = useState([]);
-
-  const apiFetch = async () => {
-    try {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-      const data = await response.json();
-
-      const allPokemon = [...data.results];
-      console.log(allPokemon);
-
-      const pokemons = allPokemon.map(async (pokemon) => {
-        const pokeFetch = await fetch(pokemon.url);
-        const pokeData = await pokeFetch.json();
-        
-        return pokeData;
-      });
-
-      setList(pokemons);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    apiFetch();
-  }, []);
-
   return (
-    <View>
-      <FlatList
-        data={list}
-        renderItem={showPokemon}
-        keyExtractor={(item) => item.name}
-      />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="App" component={Main} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
