@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "skyblue",
     alignItems: "center",
   },
   text: {
@@ -11,34 +11,45 @@ export const styles = StyleSheet.create({
     fontFamily: "Roboto",
     padding: 10,
   },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   button: {
-    backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
   },
-  gallery: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
+
   image: {
-    width: 25,
-    height: 25,
+    backgroundColor: "aliceblue",
+    width: 125,
+    height: 125,
+    borderRadius: 15,
+    margin: 10,
   },
+
   imageCard: {
-    flex: 1,
-    backgroundColor: "#f0f0f0",
+    flex: 3,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "steelblue",
     borderRadius: 15,
     width: 300,
-    height: 300,
+    height: 150,
+    margin: 10,
+
   },
   abilities: {
     flexDirection: "column",
   },
+
   card: {
-    flex: 1,
-    backgroundColor: "#f0f0f0",
+    flex: 3,
+    backgroundColor: "skyblue",
     padding: 10,
     borderRadius: 15,
-    margin: 10,
+    margin: 20,
+    
   },
 });

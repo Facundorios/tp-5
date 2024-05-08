@@ -41,22 +41,23 @@ function PokemonListScreen({ navigation }) {
         onPress={fetchData}
         style={styles.button}
       />
-  
-        <FlatList
-          data={pokemonList}
-          renderItem={({ item }) => (
-            <View>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Pokemon-Card", { item })}
-              >
-                <Image src={item.sprites.front_default} style={styles.image} />
-              </TouchableOpacity>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-          style={styles.gallery}
-        />
-      </View>
+
+      <FlatList
+        data={pokemonList}
+        renderItem={({ item }) => (
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Pokemon-Card", { item })}
+              style={styles.imageCard}
+            >
+              <Image src={item.sprites.front_default} style={styles.image} />
+              
+            </TouchableOpacity>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   );
 }
 

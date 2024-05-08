@@ -7,7 +7,7 @@ function Home({ navigation }) {
     <>
       <View style={styles.container}>
         <Button
-          style={styles.button}
+          style={styles.title}
           title="Ver lista de pokemones"
           onPress={() => navigation.navigate("Pokemon-List")}
         />

@@ -7,11 +7,13 @@ function PokemonCardScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>
-        Pokemon: "{item.name.charAt(0).toUpperCase() + item.name.slice(1)}"
+      <Text style={styles.title}>
+        "{item.name.charAt(0).toUpperCase() + item.name.slice(1)}"
       </Text>
-      <Image src={item.sprites.front_default} style={styles.imageCard} />
-
+      <View style={styles.imageCard}>
+        <Image src={item.sprites.front_default} style={styles.imageCard} />
+        <Image src={item.sprites.back_default} style={styles.imageCard} />
+      </View>
       <View style={styles.card}>
         <Text style={styles.text}>
           Detalles de: {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
@@ -24,7 +26,14 @@ function PokemonCardScreen({ route, navigation }) {
         <Text>Habilidades:</Text>
         <FlatList
           data={item.abilities}
-          renderItem={({ item }) => <Text>-"{item.ability.name.charAt(0).toUpperCase() + item.ability.name.slice(1)}"</Text>}
+          renderItem={({ item }) => (
+            <Text>
+              -"
+              {item.ability.name.charAt(0).toUpperCase() +
+                item.ability.name.slice(1)}
+              "
+            </Text>
+          )}
           style={styles.abilities}
         />
       </View>
