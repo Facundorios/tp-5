@@ -15,7 +15,7 @@ function PokemonListScreen({ navigation }) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=35"
+        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=350"
       );
       const data = await response.json();
       const allPokemon = [...data.results];
@@ -32,6 +32,22 @@ function PokemonListScreen({ navigation }) {
       console.error("Error fetching data:", error);
     }
   };
+
+  const deletePokemon = (id) => {
+    const newList = pokemonList.filter((pokemon) => pokemon.id !== id);
+    setPokemonList(newList);
+  };
+
+  const deleteButton = (id) => {
+    return (
+      <Button
+        title="Eliminar"
+        onPress={() => deletePokemon(id)}
+        style={styles.deleteButton}
+      />
+    );
+  };
+
 
   return (
     <View style={styles.container}>
@@ -51,14 +67,14 @@ function PokemonListScreen({ navigation }) {
               style={styles.imageCard}
             >
               <Image src={item.sprites.front_default} style={styles.image} />
-              
+              <Button title="Eliminar" style={styles.deleteButton} onPress={() => deletePokemon(item.id)} />
             </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item) => item.id}
       />
     </View>
-  );
+  )
 }
 
 export default PokemonListScreen;

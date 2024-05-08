@@ -46,10 +46,15 @@ export const styles = StyleSheet.create({
 
   card: {
     flex: 3,
-    backgroundColor: "skyblue",
+    backgroundColor: "aliceblue",
     padding: 10,
     borderRadius: 15,
     margin: 20,
     
   },
+  deleteButton: {
+    backgroundColor: "red",
+    padding: 10,
+    borderRadius: 5,
+  }
 });
