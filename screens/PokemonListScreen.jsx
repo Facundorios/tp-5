@@ -1,4 +1,11 @@
-import { View, Button, Text, FlatList } from "react-native";
+import {
+  View,
+  Button,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { styles } from "../style/style";
 import { useState } from "react";
 
@@ -8,38 +15,48 @@ function PokemonListScreen({ navigation }) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=1302"
+        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=35"
       );
       const data = await response.json();
       const allPokemon = [...data.results];
 
       const detailsPromises = allPokemon.map(async (pokemon) => {
+        const pokemonResponse = await fetch(pokemon.url);
+        const pokemonData = await pokemonResponse.json();
 
-        const detailsResponse = await fetch(pokemon.url);
-        const detailsData = await detailsResponse.json();
-        
-        return {
-          name: pokemon.name,
-          details: detailsData,
-        };
+        return pokemonData;
       });
       const pokemonWithDetails = await Promise.all(detailsPromises);
       setPokemonList(pokemonWithDetails);
-      console.log(detailsData)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-
-
   return (
     <View style={styles.container}>
       <Text>Lista de pokemones</Text>
-      <Button title="Cargar pokemon" onPress={fetchData} />
-      <FlatList data={pokemonList} renderItem={({ item }) => <Text>{item.name}</Text>} />
-    </View>
-
+      <Button
+        title="Cargar pokemones"
+        onPress={fetchData}
+        style={styles.button}
+      />
+  
+        <FlatList
+          data={pokemonList}
+          renderItem={({ item }) => (
+            <View>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Pokemon-Card", { item })}
+              >
+                <Image src={item.sprites.front_default} style={styles.image} />
+              </TouchableOpacity>
+            </View>
+          )}
+          keyExtractor={(item) => item.id}
+          style={styles.gallery}
+        />
+      </View>
   );
 }
 

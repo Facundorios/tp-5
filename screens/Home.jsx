@@ -1,11 +1,17 @@
 import React from "react";
-import { Text, Button } from "react-native";
+import { Text, Button, View } from "react-native";
+import { styles } from "../style/style";
 
 function Home({ navigation }) {
   return (
     <>
-      <Text>OÑAAAA</Text>
-      <Button title="Andate de acá" onPress={() => navigation.navigate("PokemonList")}/>
+      <View style={styles.container}>
+        <Button
+          style={styles.button}
+          title="Ver lista de pokemones"
+          onPress={() => navigation.navigate("Pokemon-List")}
+        />
+      </View>
     </>
   );
 }
