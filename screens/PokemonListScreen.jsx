@@ -48,7 +48,6 @@ function PokemonListScreen({ navigation }) {
     );
   };
 
-
   return (
     <View style={styles.container}>
       <Text>Lista de pokemones</Text>
@@ -60,21 +59,25 @@ function PokemonListScreen({ navigation }) {
 
       <FlatList
         data={pokemonList}
-        renderItem={({ item }) => (
+        renderItem={({ item }) => ( 
           <View>
             <TouchableOpacity
               onPress={() => navigation.navigate("Pokemon-Card", { item })}
               style={styles.imageCard}
             >
               <Image src={item.sprites.front_default} style={styles.image} />
-              <Button title="Eliminar" style={styles.deleteButton} onPress={() => deletePokemon(item.id)} />
+              <Button
+                title="Eliminar"
+                style={styles.deleteButton}
+                onPress={() => deletePokemon(item.id)}
+              />
             </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item) => item.id}
       />
     </View>
-  )
+  );
 }
 
 export default PokemonListScreen;
